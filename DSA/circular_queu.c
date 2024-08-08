@@ -1,103 +1,50 @@
 #include <stdio.h>
+int q[100], n, x, f = -1, r = -1, c;
 
-int q[100], n, x, f = -1, r = -1;
-
-void start();
-void enqueuing();
-void dequeuing();
-void display();
-int main()
-{
-    printf("Enter length of queue: ");
-    scanf("%d", &n);
-
-    printf("\nOperations to perform\n-------------------\n1. Enqueue\n2. Dequeue\n3. Display\n4. Exit\n");
-    start();
-
-    return 0;
-}
-
-void start()
-{
-    int c;
-    while (1)
-    {
-        printf("\nEnter operation: ");
-        scanf("%d", &c);
-
-        switch (c)
-        {
-        case 1:
-            enqueuing();
-            break;
-        case 2:
-            dequeuing();
-            break;
-        case 3:
-            display();
-            break;
-        case 4:
-            return;
-        default:
-            printf("Enter a valid operation.");
-            break;
-        }
-    }
-}
-
+// ------------------------------------ Function defination ------------------------
 void enqueuing()
 {
-
     if (((r + 1) % n) == f)
     {
-        printf("\nq is overflow.");
-        start();
+        printf("q is overflow.");
     }
     else
     {
-        printf("Enter value to insert in q:- ");
-        scanf("%d", &x);
-
         r = (r + 1) % n;
+        printf("Enter value to insert in q:- ");
+        scanf("%d", &q[r]);
+        printf("%d is Inserted.", q[r]);
         if (f == -1)
         {
             f = 0;
         }
-        q[r] = x;
-        start();
     }
 }
-
 void dequeuing()
 {
     if (f == -1)
     {
-        printf("Queue is empty.\n");
-        start();
+        printf("Queue is empty.");
     }
     else
     {
-        x = q[f];
-        printf("The deleted element is:- %d", x);
+        printf("The deleted element is:- %d", q[f]);
         f = (f + 1) % n;
         if ((r == (f - 1 + n) % n))
         {
             f = r = -1;
-            start();
         }
     }
 }
-
 void display()
 {
     if (f == -1)
     {
-        printf("Queue is empty.\n");
-        start();
+        printf("Queue is empty.");
     }
     else
     {
-        printf("The queue is: ");
+        printf("The queue is:- ");
         if (r >= f)
         {
             for (int i = f; i <= r; i++)
@@ -116,6 +63,36 @@ void display()
                 printf("%d ", q[i]);
             }
         }
-        printf("\n");
+    }
+}
+int main()
+{
+    printf("Enter length of queue:- ");
+    scanf("%d", &n);
+
+    printf("\nOperations to perform\n------------------------\n1. Enqueue\n2. Dequeue\n3. Display\n4. Exit\n");
+
+    while (1)
+    {
+        printf("\n\nEnter operation:- ");
+        scanf("%d", &c);
+
+        switch (c)
+        {
+        case 1:
+            enqueuing();
+            break;
+        case 2:
+            dequeuing();
+            break;
+        case 3:
+            display();
+            break;
+        case 4:
+            return 0;
+        default:
+            printf("Enter a valid operation.");
+            break;
+        }
     }
 }
